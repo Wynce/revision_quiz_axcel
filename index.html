@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE Revision Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0453f1 0%, #1a75ff 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="60" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-section {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 16px;
+            background: #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0453f1, #1a75ff);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 8px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 8px;
+            justify-items: center;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .notes-input {
+            margin-bottom: 20px;
+        }
+
+        .notes-input label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .notes-input textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .notes-input textarea:focus {
+            outline: none;
+            border-color: #0453f1;
+            box-shadow: 0 0 0 3px rgba(4, 83, 241, 0.1);
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0453f1 0%, #1a75ff 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(4, 83, 241, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(1px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #FF6701 0%, #ff8c42 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 103, 1, 0.3);
+        }
+
+        .btn-secondary:active {
+            transform: translateY(1px);
+        }
+
+        .revision-content {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .blank-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin: 2px;
+            vertical-align: baseline;
+            flex-wrap: wrap;
+        }
+
+        .blank-input {
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .blank-input:focus {
+            outline: none;
+            border-color: #0453f1;
+            box-shadow: 0 0 0 3px rgba(4, 83, 241, 0.1);
+        }
+
+        .blank-input.correct {
+            border-color: #0453f1;
+            background-color: #f0f7ff;
+        }
+
+        .blank-input.incorrect {
+            border-color: #d63031;
+            background-color: #fff8f8;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .blank-input.show-answer {
+            background-color: #fff3cd;
+            border-color: #FF6701;
+            color: #856404;
+            font-weight: bold;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+        }
+
+        .status-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .status-indicator.empty {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            color: #6c757d;
+        }
+
+        .status-indicator.correct {
+            background: #0453f1;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .status-indicator.incorrect {
+            background: #d63031;
+            color: white;
+        }
+
+        .status-indicator.show-answer {
+            background: #FF6701;
+            color: white;
+            font-weight: bold;
+        }
+
+        .placeholder-text {
+            color: #6c757d;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .celebration {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #0453f1, #1a75ff);
+            color: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            z-index: 1000;
+            animation: celebrationPop 0.5s ease-out;
+            max-width: 90vw;
+            width: 320px;
+            border: 2px solid #FF6701;
+        }
+
+        .celebration h2 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .celebration button {
+            margin-top: 15px;
+            border: 2px solid white;
+        }
+
+        @keyframes celebrationPop {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Settings panel */
+        .settings-panel {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        body.dark-mode .settings-panel {
+            background: #2a2a2a;
+            color: #e0e0e0;
+        }
+
+        .settings-panel.open {
+            right: 0;
+        }
+
+        .settings-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none;
+        }
+
+        .settings-overlay.show {
+            display: block;
+        }
+
+        .settings-group {
+            margin-bottom: 20px;
+        }
+
+        .settings-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .settings-group select,
+        .settings-group input {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        body.dark-mode .settings-group select,
+        body.dark-mode .settings-group input {
+            background: #3a3a3a;
+            border-color: #4a4a4a;
+            color: #e0e0e0;
+        }
+
+        /* Settings panel instruction styles */
+        .instruction-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .instruction-content.show {
+            max-height: 400px;
+        }
+
+        body.dark-mode .instruction-content > div {
+            background: #3a3a3a !important;
+            color: #e0e0e0;
+        }
+
+        #instructionArrow {
+            transition: transform 0.3s ease;
+        }
+
+        #instructionArrow.open {
+            transform: rotate(180deg);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: #ccc;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: #0453f1;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: left 0.3s;
+        }
+
+        .toggle-switch.active::after {
+            left: 28px;
+        }
+
+        /* Settings button */
+        .settings-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .settings-btn {
+            background: rgba(42,42,42,0.9);
+            color: #e0e0e0;
+        }
+
+        /* Timer styles */
+        .timer-section {
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #FF6701, #ff8c42);
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        body.dark-mode .timer-section {
+            background: linear-gradient(90deg, #e67e22, #FF6701);
+        }
+
+        .timer-warning {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Answer displays */
+        .answer-display {
+            font-size: 0.8em;
+            margin-left: 5px;
+            font-style: italic;
+        }
+
+        .answer-display.correct {
+            color: #0453f1;
+        }
+
+        .answer-display.incorrect {
+            color: #d63031;
+        }
+
+        body.dark-mode .answer-display {
+            color: #e5e6ea;
+        }
+
+        body.dark-mode .answer-display.correct {
+            color: #8ab4ff;
+        }
+
+        body.dark-mode .answer-display.incorrect {
+            color: #ffb3b3;
+        }
+
+        /* Tablet Styles (768px and up) */
+        @media (min-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            .header {
+                padding: 30px;
+            }
+
+            .header h1 {
+                font-size: 2.2rem;
+                margin-bottom: 10px;
+            }
+
+            .header p {
+                font-size: 1.2rem;
+            }
+
+            .progress-section {
+                padding: 20px 30px;
+            }
+
+            .progress-bar {
+                height: 20px;
+                margin-bottom: 15px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 15px;
+            }
+
+            .stat-item {
+                padding: 8px 16px;
+                font-size: 1rem;
+            }
+
+            .content {
+                padding: 30px;
+            }
+
+            .notes-input textarea {
+                height: 150px;
+                padding: 15px;
+                font-size: 14px;
+            }
+
+            .controls {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .btn {
+                width: auto;
+                min-width: 140px;
+                padding: 12px 24px;
+                font-size: 16px;
+            }
+
+            .btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(4, 83, 241, 0.4);
+            }
+
+            .revision-content {
+                padding: 25px;
+                font-size: 16px;
+            }
+
+            .blank-container {
+                gap: 8px;
+                margin: 0 4px;
+            }
+
+            .blank-input {
+                padding: 6px 12px;
+                font-size: inherit;
+                min-width: 80px;
+            }
+
+            .status-indicator {
+                width: 24px;
+                height: 24px;
+                font-size: 14px;
+            }
+
+            .celebration {
+                padding: 30px;
+                width: 400px;
+            }
+        }
+
+        /* Desktop Styles (1024px and up) */
+        @media (min-width: 1024px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .controls {
+                justify-content: center;
+            }
+
+            .btn {
+                min-width: 160px;
+            }
+        }
+
+        /* Small Mobile Adjustments (max 480px) */
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .container {
+                border-radius: 15px;
+                margin: 5px;
+            }
+
+            .header {
+                padding: 15px;
+                border-radius: 15px 15px 0 0;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+                margin-bottom: 5px;
+            }
+
+            .header p {
+                font-size: 0.9rem;
+            }
+
+            .progress-section {
+                padding: 12px 15px;
+            }
+
+            .progress-bar {
+                height: 14px;
+                margin-bottom: 10px;
+            }
+
+            .stats {
+                gap: 6px;
+            }
+
+            .stat-item {
+                padding: 5px 8px;
+                font-size: 0.75rem;
+                gap: 4px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .notes-input textarea {
+                height: 100px;
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            .btn {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+
+            .revision-content {
+                padding: 15px;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+            .blank-input {
+                padding: 6px 8px;
+                font-size: 13px;
+                min-width: 70px;
+            }
+
+            .blank-container {
+                gap: 4px;
+                margin: 1px;
+            }
+
+            .status-indicator {
+                width: 18px;
+                height: 18px;
+                font-size: 11px;
+            }
+
+            .celebration {
+                padding: 15px;
+                width: 280px;
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .btn {
+                min-height: 44px; /* Apple's recommended minimum touch target */
+            }
+
+            .blank-input {
+                min-height: 40px;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+
+            .status-indicator {
+                min-width: 24px;
+                min-height: 24px;
+            }
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        body.dark-mode .container {
+            background: rgba(30, 30, 30, 0.95);
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .header {
+            background: linear-gradient(135deg, #0341c8 0%, #1564d4 100%);
+        }
+
+        body.dark-mode .progress-section {
+            background: #2a2a2a;
+            border-color: #3a3a3a;
+        }
+
+        body.dark-mode .stat-item {
+            background: #3a3a3a;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .notes-input textarea {
+            background: #2a2a2a;
+            border-color: #4a4a4a;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .notes-input textarea:focus {
+            border-color: #0453f1;
+            box-shadow: 0 0 0 3px rgba(4, 83, 241, 0.2);
+        }
+
+        body.dark-mode .revision-content {
+            background: #2a2a2a;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .blank-input {
+            background: #3a3a3a;
+            border-color: #4a4a4a;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .blank-input:focus {
+            border-color: #0453f1;
+            box-shadow: 0 0 0 3px rgba(4, 83, 241, 0.2);
+        }
+
+        body.dark-mode .blank-input.correct {
+            border-color: #0341c8;
+            background-color: #1a2e4a;
+        }
+
+        body.dark-mode .blank-input.incorrect {
+            border-color: #d63031;
+            background-color: #2e1a1a;
+        }
+
+        body.dark-mode .blank-input.show-answer {
+            background-color: #3a3a1a;
+            border-color: #FF6701;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .status-indicator.empty {
+            background: #3a3a3a;
+            border-color: #4a4a4a;
+            color: #a0a0a0;
+        }
+
+        body.dark-mode .celebration {
+            background: linear-gradient(135deg, #0341c8, #1564d4);
+            border-color: #FF6701;
+        }
+
+        body.dark-mode .placeholder-text {
+            color: #a0a0a0;
+        }
+
+        /* Landscape phone adjustments */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .header {
+                padding: 10px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.3rem;
+                margin-bottom: 3px;
+            }
+
+            .header p {
+                font-size: 0.8rem;
+            }
+
+            .progress-section {
+                padding: 8px 15px;
+            }
+
+            .content {
+                padding: 10px 20px;
+            }
+
+            .notes-input textarea {
+                height: 80px;
+            }
+
+            .celebration {
+                padding: 15px;
+                width: 250px;
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+
+            .settings-panel {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Settings Panel -->
+    <div class="settings-overlay" id="settingsOverlay" onclick="closeSettings()"></div>
+    <div class="settings-panel" id="settingsPanel">
+        <h3 style="margin-bottom: 20px;">⚙️ Quiz Settings</h3>
+        
+        <div class="settings-group">
+            <label style="cursor: pointer; display: flex; align-items: center; justify-content: space-between;" onclick="toggleInstructions()">
+                ❓ How to Use This App
+                <span id="instructionArrow" style="transition: transform 0.3s ease;">▼</span>
+            </label>
+            <div class="instruction-content" id="instructionContent">
+                <div style="background: #f8f9fa; border-radius: 8px; padding: 15px; margin-top: 10px; line-height: 1.5; font-size: 13px;">
+                    <strong>1. Format Your Notes:</strong><br>
+                    • Put words you want as blanks in <strong>[square brackets]</strong><br>
+                    • Example: "The [force] equals [mass] times [acceleration]"<br><br>
+                    
+                    <strong>2. What Students See:</strong><br>
+                    • "The f____ equals m___ times a___________"<br>
+                    • Students fill in the blanks using the hints<br><br>
+                    
+                    <strong>3. Smart Answer Checking:</strong><br>
+                    • Accepts different capitalizations (Force, FORCE, force)<br>
+                    • Handles plurals (electron/electrons)<br>
+                    • Forgives minor typos<br><br>
+                    
+                    <strong>4. Difficulty Levels:</strong><br>
+                    • Easy: Shows first 2 letters (fo____)<br>
+                    • Medium: Shows first letter (f____)<br>
+                    • Hard: Shows only underscores (______)<br><br>
+                    
+                    <strong>5. Works for Any Subject:</strong><br>
+                    • Physics, Biology, Chemistry, History, Geography, Languages, etc!
+                </div>
+            </div>
+        </div>
+        
+        <div class="settings-group">
+            <label>🌙 Dark Mode</label>
+            <div class="toggle-switch" id="darkModeToggle" onclick="toggleDarkMode()"></div>
+        </div>
+
+        <div class="settings-group">
+            <label for="difficultySelect">🎯 Difficulty Level</label>
+            <select id="difficultySelect" onchange="changeDifficulty()">
+                <option value="easy">🟢 Easy (2 letters shown)</option>
+                <option value="medium" selected>🟡 Medium (1 letter shown)</option>
+                <option value="hard">🔴 Hard (no letters shown)</option>
+            </select>
+        </div>
+
+        <div class="settings-group">
+            <label for="timerToggle">⏱️ Timer</label>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="toggle-switch" id="timerToggle" onclick="toggleTimer()"></div>
+                <span>Enable Timer</span>
+            </div>
+        </div>
+
+        <div class="settings-group" id="timerSettings" style="display: none;">
+            <label for="timerMinutes">⏰ Quiz Time (minutes)</label>
+            <input type="number" id="timerMinutes" value="10" min="1" max="60">
+        </div>
+
+        <div style="margin-top: 30px;">
+            <button class="btn btn-secondary" onclick="closeSettings()" style="width: 100%;">
+                ✅ Save Settings
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <img src="/Users/wynceaxcel/Apps/simulator/revision_quiz/public/images/axcel-logo.jpg" alt="AXCEL LOGO" style="max-width: 120px; height: auto; margin-bottom: 10px; drop-shadow: 0 2px 4px rgba(0,0,0,0.3); position: relative; z-index: 1;">
+            <h1>📚 IGCSE Revision Quiz</h1>
+            <p>Interactive Learning Tool for All Subjects</p>
+            <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <span>📊</span>
+                    <span id="progressText">0% Complete</span>
+                </div>
+                <div class="stat-item">
+                    <span>✅</span>
+                    <span id="correctCount">0 Correct</span>
+                </div>
+                <div class="stat-item">
+                    <span>❌</span>
+                    <span id="incorrectCount">0 Incorrect</span>
+                </div>
+                <div class="stat-item">
+                    <span>🎯</span>
+                    <span id="totalBlanks">0 Total</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timer Section -->
+        <div class="timer-section" id="timerSection">
+            <div>⏱️ Time Remaining: <span id="timerDisplay">10:00</span></div>
+        </div>
+
+        <div class="content">
+            <div class="notes-input" id="notesInput">
+                <label for="notesTextarea">📝 Paste your revision notes here:</label>
+                <textarea id="notesTextarea" placeholder="Put words you want as blanks inside [square brackets]. Students will see hints like: The f____ equals m___ times a___________
+
+Works for any subject - Physics, Biology, Chemistry, Geography, History, and more!"></textarea>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" onclick="generateRevision()">
+                    🚀 Generate Quiz
+                </button>
+                <button class="btn btn-secondary" id="submitBtn" onclick="submitQuiz()" style="display: none;">
+                    📝 Submit Quiz
+                </button>
+                <button class="btn btn-secondary" id="revealBtn" onclick="revealAnswers()" style="display: none;">
+                    👁️ Reveal Answers
+                </button>
+                <button class="btn btn-secondary" id="retestBtn" onclick="retestQuestions()" style="display: none;">
+                    🔄 Retest Questions
+                </button>
+                <button class="btn btn-secondary" onclick="resetRevision()">
+                    🗑️ Reset All
+                </button>
+            </div>
+
+            <div id="revisionContent" class="revision-content" style="display: none;">
+                <div class="placeholder-text">
+                    Your interactive revision notes will appear here! ✨
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let blanksData = [];
+        let totalBlanks = 0;
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+        let quizSubmitted = false;
+        let difficulty = 'medium';
+        let timerEnabled = false;
+        let timerInterval = null;
+        let timeRemaining = 600; // 10 minutes in seconds
+        const defaultNotes = `The [force] required to accelerate an object is equal to its [mass] times its [acceleration]. This is known as [Newton's] second law of motion.
+
+[Energy] cannot be created or destroyed, only transferred from one form to another. This is the law of conservation of [energy].
+
+The [speed] of light in a vacuum is approximately [300000000] meters per second. Light travels in straight lines and can be [reflected] by mirrors.
+
+[Electricity] is the flow of [electrons] through a conductor. The unit of electrical [current] is the [ampere].
+
+[Temperature] is a measure of the average [kinetic] energy of particles in a substance. Heat always flows from [hot] objects to [cold] objects.`;
+
+        // Initialize settings from localStorage
+        function initializeSettings() {
+            // Dark mode
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                document.getElementById('darkModeToggle').classList.add('active');
+            }
+
+            // Difficulty
+            const savedDifficulty = localStorage.getItem('difficulty') || 'medium';
+            difficulty = savedDifficulty;
+            document.getElementById('difficultySelect').value = savedDifficulty;
+
+            // Timer
+            const savedTimerEnabled = localStorage.getItem('timerEnabled') === 'true';
+            timerEnabled = savedTimerEnabled;
+            if (timerEnabled) {
+                document.getElementById('timerToggle').classList.add('active');
+                document.getElementById('timerSettings').style.display = 'block';
+            }
+
+            const savedTimerMinutes = localStorage.getItem('timerMinutes') || '10';
+            document.getElementById('timerMinutes').value = savedTimerMinutes;
+            timeRemaining = parseInt(savedTimerMinutes) * 60;
+        }
+
+        // Settings functions
+        function toggleSettings() {
+            const panel = document.getElementById('settingsPanel');
+            const overlay = document.getElementById('settingsOverlay');
+            
+            panel.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+
+        function closeSettings() {
+            document.getElementById('settingsPanel').classList.remove('open');
+            document.getElementById('settingsOverlay').classList.remove('show');
+        }
+
+        function toggleDarkMode() {
+            const toggle = document.getElementById('darkModeToggle');
+            const isDarkMode = document.body.classList.toggle('dark-mode');
+            
+            toggle.classList.toggle('active', isDarkMode);
+            localStorage.setItem('darkMode', isDarkMode.toString());
+        }
+
+        function changeDifficulty() {
+            difficulty = document.getElementById('difficultySelect').value;
+            localStorage.setItem('difficulty', difficulty);
+        }
+
+        function toggleTimer() {
+            const toggle = document.getElementById('timerToggle');
+            const settings = document.getElementById('timerSettings');
+            
+            timerEnabled = !timerEnabled;
+            toggle.classList.toggle('active', timerEnabled);
+            settings.style.display = timerEnabled ? 'block' : 'none';
+            
+            localStorage.setItem('timerEnabled', timerEnabled.toString());
+            
+            if (!timerEnabled) {
+                stopTimer();
+            }
+        }
+
+        // Timer functions
+        function startTimer() {
+            if (!timerEnabled) return;
+            
+            const minutes = parseInt(document.getElementById('timerMinutes').value);
+            timeRemaining = minutes * 60;
+            localStorage.setItem('timerMinutes', minutes.toString());
+            
+            document.getElementById('timerSection').style.display = 'block';
+            updateTimerDisplay();
+            
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                
+                if (timeRemaining <= 60) {
+                    document.getElementById('timerSection').classList.add('timer-warning');
+                }
+                
+                if (timeRemaining <= 0) {
+                    timeUp();
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            document.getElementById('timerSection').style.display = 'none';
+            document.getElementById('timerSection').classList.remove('timer-warning');
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('timerDisplay').textContent = display;
+        }
+
+        function timeUp() {
+            stopTimer();
+            if (!quizSubmitted) {
+                alert('⏰ Time\'s up! Your quiz will be submitted automatically.');
+                submitQuiz();
+            }
+        }
+
+        // Instruction dropdown toggle
+        function toggleInstructions() {
+            const content = document.getElementById('instructionContent');
+            const arrow = document.getElementById('instructionArrow');
+            
+            content.classList.toggle('show');
+            arrow.classList.toggle('open');
+        }
+
+        // Remove info popup functions - no longer needed
+        function normalizeAnswer(answer) {
+            return answer
+                .toLowerCase()
+                .trim()
+                .replace(/[^\w\s]/g, '') // Remove punctuation
+                .replace(/\s+/g, ' '); // Normalize spaces
+        }
+
+        function isAnswerCorrect(userAnswer, correctAnswer) {
+            const normalizedUser = normalizeAnswer(userAnswer);
+            const normalizedCorrect = normalizeAnswer(correctAnswer);
+            
+            // Exact match
+            if (normalizedUser === normalizedCorrect) return true;
+            
+            // Check without 's' (plural/singular)
+            const userWithoutS = normalizedUser.replace(/s$/, '');
+            const correctWithoutS = normalizedCorrect.replace(/s$/, '');
+            if (userWithoutS === correctWithoutS) return true;
+            if (normalizedUser === correctWithoutS) return true;
+            if (userWithoutS === normalizedCorrect) return true;
+            
+            // Check common typos and variations
+            const userChars = normalizedUser.split('').sort().join('');
+            const correctChars = normalizedCorrect.split('').sort().join('');
+            
+            // Allow 1 character difference for typos (only if words are longer than 3 chars)
+            if (normalizedCorrect.length > 3) {
+                const editDistance = calculateEditDistance(normalizedUser, normalizedCorrect);
+                if (editDistance <= 1) return true;
+            }
+            
+            return false;
+        }
+
+        function calculateEditDistance(str1, str2) {
+            const matrix = Array(str2.length + 1).fill(null).map(() => Array(str1.length + 1).fill(null));
+            
+            for (let i = 0; i <= str1.length; i++) matrix[0][i] = i;
+            for (let j = 0; j <= str2.length; j++) matrix[j][0] = j;
+            
+            for (let j = 1; j <= str2.length; j++) {
+                for (let i = 1; i <= str1.length; i++) {
+                    const indicator = str1[i - 1] === str2[j - 1] ? 0 : 1;
+                    matrix[j][i] = Math.min(
+                        matrix[j][i - 1] + 1,
+                        matrix[j - 1][i] + 1,
+                        matrix[j - 1][i - 1] + indicator
+                    );
+                }
+            }
+            
+            return matrix[str2.length][str1.length];
+        }
+        function generatePlaceholder(word) {
+            switch (difficulty) {
+                case 'easy':
+                    const firstTwo = word.substring(0, 2);
+                    const easyUnderscores = '_'.repeat(Math.max(0, word.length - 2));
+                    return firstTwo + easyUnderscores;
+                
+                case 'hard':
+                    return '_'.repeat(word.length);
+                
+                case 'medium':
+                default:
+                    const firstLetter = word.charAt(0);
+                    const mediumUnderscores = '_'.repeat(word.length - 1);
+                    return firstLetter + mediumUnderscores;
+            }
+        }
+
+        function generateRevision() {
+            const notesText = document.getElementById('notesTextarea').value.trim();
+            
+            if (!notesText) {
+                alert('Please enter some notes first! 📝');
+                return;
+            }
+
+            blanksData = [];
+            totalBlanks = 0;
+            correctAnswers = 0;
+            incorrectAnswers = 0;
+            quizSubmitted = false;
+
+            // Process the text to find words in brackets
+            let processedText = notesText.replace(/\[([^\]]+)\]/g, (match, word) => {
+                const blankId = `blank_${totalBlanks}`;
+                const placeholder = generatePlaceholder(word);
+                
+                blanksData.push({
+                    id: blankId,
+                    answer: word.toLowerCase(),
+                    placeholder: placeholder
+                });
+                
+                totalBlanks++;
+                
+                return `<span class="blank-container">
+                    <input type="text" class="blank-input" id="${blankId}" 
+                           placeholder="${placeholder}" 
+                           autocomplete="off">
+                    <div class="status-indicator empty" id="${blankId}_status">?</div>
+                </span>`;
+            });
+
+            // Hide the notes input section after generating quiz
+            document.getElementById('notesInput').style.display = 'none';
+            
+            document.getElementById('revisionContent').innerHTML = processedText;
+            document.getElementById('revisionContent').style.display = 'block';
+            document.getElementById('submitBtn').style.display = 'flex';
+            document.getElementById('revealBtn').style.display = 'none';
+            document.getElementById('retestBtn').style.display = 'none';
+            
+            // Start timer if enabled
+            startTimer();
+            
+            updateStats();
+        }
+
+        function submitQuiz() {
+            if (totalBlanks === 0) {
+                alert('Please generate revision notes first! 🚀');
+                return;
+            }
+
+            // Stop timer when quiz is submitted
+            stopTimer();
+
+            quizSubmitted = true;
+
+            // Calculate score based on current answers
+            let correctCount = 0;
+            let attemptedCount = 0;
+
+            blanksData.forEach(blank => {
+                const input = document.getElementById(blank.id);
+                const statusIndicator = document.getElementById(blank.id + '_status');
+                const userAnswer = input.value.trim();
+                
+                if (userAnswer) {
+                    attemptedCount++;
+                    if (isAnswerCorrect(userAnswer, blank.answer)) {
+                        correctCount++;
+                        // Mark as correct and show answer
+                        input.classList.add('correct');
+                        statusIndicator.className = 'status-indicator correct';
+                        statusIndicator.textContent = '✓';
+                        
+                        // Add correct answer display
+                        const answerDisplay = document.createElement('span');
+                        answerDisplay.className = 'answer-display correct';
+                        answerDisplay.textContent = `(${blank.answer})`;
+                        input.parentNode.appendChild(answerDisplay);
+                    } else {
+                        // Mark as incorrect and show correct answer
+                        input.classList.add('incorrect');
+                        statusIndicator.className = 'status-indicator incorrect';
+                        statusIndicator.textContent = '✗';
+                        
+                        // Add incorrect answer display
+                        const answerDisplay = document.createElement('span');
+                        answerDisplay.className = 'answer-display incorrect';
+                        answerDisplay.textContent = `(${blank.answer})`;
+                        input.parentNode.appendChild(answerDisplay);
+                    }
+                } else {
+                    // Not attempted - show correct answer
+                    input.classList.add('show-answer');
+                    statusIndicator.className = 'status-indicator show-answer';
+                    statusIndicator.textContent = '?';
+                    
+                    // Add answer display for unanswered
+                    const answerDisplay = document.createElement('span');
+                    answerDisplay.className = 'answer-display';
+                    answerDisplay.textContent = `(${blank.answer})`;
+                    input.parentNode.appendChild(answerDisplay);
+                }
+                
+                // Disable input after submission
+                input.disabled = true;
+            });
+
+            const score = totalBlanks > 0 ? Math.round((correctCount / totalBlanks) * 100) : 0;
+            
+            // Show score results
+            showScoreResults(correctCount, totalBlanks, score, attemptedCount);
+            
+            // Hide submit button and show reveal + retest buttons
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('revealBtn').style.display = 'flex';
+            document.getElementById('retestBtn').style.display = 'flex';
+        }
+
+        function showScoreResults(correct, total, score, attempted) {
+            const overlay = document.createElement('div');
+            overlay.className = 'overlay';
+            
+            const results = document.createElement('div');
+            results.className = 'celebration';
+            
+            let message = '';
+            let emoji = '';
+            
+            if (score >= 90) {
+                message = 'Outstanding Performance!';
+                emoji = '🌟';
+            } else if (score >= 70) {
+                message = 'Great Work!';
+                emoji = '🎉';
+            } else if (score >= 50) {
+                message = 'Good Effort!';
+                emoji = '👍';
+            } else {
+                message = 'Keep Learning!';
+                emoji = '💪';
+            }
+            
+            results.innerHTML = `
+                <h2>${emoji} Quiz Submitted! ${emoji}</h2>
+                <h3>${message}</h3>
+                <div style="margin: 20px 0; font-size: 1.2em;">
+                    <p><strong>Your Score: ${correct}/${total}</strong></p>
+                    <p><strong>Percentage: ${score}%</strong></p>
+                    <p>Questions Attempted: ${attempted}/${total}</p>
+                </div>
+                <p style="margin-bottom: 20px;">Ready to see which answers were correct?</p>
+                <button class="btn btn-primary" onclick="closeScoreResults()">Continue 📚</button>
+            `;
+            
+            document.body.appendChild(overlay);
+            document.body.appendChild(results);
+        }
+
+        function closeScoreResults() {
+            const overlay = document.querySelector('.overlay');
+            const results = document.querySelector('.celebration');
+            if (overlay) overlay.remove();
+            if (results) results.remove();
+        }
+
+        function revealAnswers() {
+            if (totalBlanks === 0) {
+                alert('Please generate revision notes first! 🚀');
+                return;
+            }
+
+            if (!quizSubmitted) {
+                alert('Please submit your quiz first to see your score! 📝');
+                return;
+            }
+
+            let allCorrect = true;
+            let answeredCount = 0;
+
+            blanksData.forEach(blank => {
+                const input = document.getElementById(blank.id);
+                const statusIndicator = document.getElementById(blank.id + '_status');
+                const userAnswer = input.value.trim();
+                
+                // Remove any existing answer displays
+                const existingDisplay = input.parentNode.querySelector('.answer-display');
+                if (existingDisplay) existingDisplay.remove();
+                
+                if (!userAnswer) {
+                    // Empty - show the correct answer
+                    input.value = blank.answer;
+                    input.className = 'blank-input show-answer';
+                    statusIndicator.className = 'status-indicator show-answer';
+                    statusIndicator.textContent = 'A';
+                    allCorrect = false;
+                } else {
+                    answeredCount++;
+                    if (isAnswerCorrect(userAnswer, blank.answer)) {
+                        // Correct answer
+                        input.className = 'blank-input correct';
+                        statusIndicator.className = 'status-indicator correct';
+                        statusIndicator.textContent = '✓';
+                    } else {
+                        // Incorrect answer - show correct answer
+                        input.value = blank.answer + ' (was: ' + userAnswer + ')';
+                        input.className = 'blank-input incorrect';
+                        statusIndicator.className = 'status-indicator incorrect';
+                        statusIndicator.textContent = '✗';
+                        allCorrect = false;
+                    }
+                }
+            });
+
+            updateStats();
+
+            // Show detailed results with answers revealed
+            const correctCount = getCurrentCorrectCount();
+            const score = totalBlanks > 0 ? Math.round((correctCount / totalBlanks) * 100) : 0;
+            
+            showDetailedResults(correctCount, totalBlanks, score);
+        }
+
+        function showDetailedResults(correct, total, score) {
+            const overlay = document.createElement('div');
+            overlay.className = 'overlay';
+            
+            const results = document.createElement('div');
+            results.className = 'celebration';
+            
+            results.innerHTML = `
+                <h2>📋 Detailed Results</h2>
+                <div style="margin: 20px 0; font-size: 1.1em;">
+                    <p><strong>Final Score: ${correct}/${total} (${score}%)</strong></p>
+                    <br>
+                    <div style="text-align: left; font-size: 0.9em;">
+                        <p><span style="color: #0453f1;">●</span> <strong>Blue:</strong> Your correct answers</p>
+                        <p><span style="color: #d63031;">●</span> <strong>Red:</strong> Your incorrect answers</p>
+                        <p><span style="color: #FF6701;">●</span> <strong>Orange:</strong> Questions you didn't attempt</p>
+                    </div>
+                </div>
+                <p>Review the answers above and try again when ready!</p>
+                <br>
+                <button class="btn btn-primary" onclick="closeDetailedResults()">Continue Learning! 📚</button>
+            `;
+            
+            document.body.appendChild(overlay);
+            document.body.appendChild(results);
+        }
+
+        function closeDetailedResults() {
+            const overlay = document.querySelector('.overlay');
+            const results = document.querySelector('.celebration');
+            if (overlay) overlay.remove();
+            if (results) results.remove();
+        }
+
+        function retestQuestions() {
+            if (totalBlanks === 0) {
+                alert('Please generate a quiz first! 🚀');
+                return;
+            }
+
+            if (confirm('Start a new attempt with the same questions? This will clear your current answers. 🔄')) {
+                // Clear all input fields and reset their states
+                blanksData.forEach(blank => {
+                    const input = document.getElementById(blank.id);
+                    const statusIndicator = document.getElementById(blank.id + '_status');
+                    
+                    // Remove answer displays
+                    const answerDisplay = input.parentNode.querySelector('.answer-display');
+                    if (answerDisplay) answerDisplay.remove();
+                    
+                    input.value = '';
+                    input.className = 'blank-input';
+                    input.disabled = false; // Re-enable input
+                    statusIndicator.className = 'status-indicator empty';
+                    statusIndicator.textContent = '?';
+                });
+                
+                // Reset quiz state
+                correctAnswers = 0;
+                incorrectAnswers = 0;
+                quizSubmitted = false;
+                
+                // Reset button visibility - back to fresh quiz state
+                document.getElementById('submitBtn').style.display = 'flex';
+                document.getElementById('revealBtn').style.display = 'none';
+                document.getElementById('retestBtn').style.display = 'none';
+                
+                // Restart timer if enabled
+                startTimer();
+                
+                updateStats();
+                
+                // Show encouraging message
+                alert('Ready for another attempt! Good luck! 🎯');
+            }
+        }
+
+        function getCurrentCorrectCount() {
+            let correct = 0;
+            blanksData.forEach(blank => {
+                const input = document.getElementById(blank.id);
+                const userAnswer = input.value.trim();
+                // Only count as correct if it matches exactly and wasn't revealed
+                if (isAnswerCorrect(userAnswer, blank.answer) && !input.classList.contains('show-answer')) {
+                    correct++;
+                }
+            });
+            return correct;
+        }
+
+        function getCurrentIncorrectCount() {
+            let incorrect = 0;
+            blanksData.forEach(blank => {
+                const input = document.getElementById(blank.id);
+                const userAnswer = input.value.trim();
+                if (userAnswer && !isAnswerCorrect(userAnswer, blank.answer) && !input.classList.contains('show-answer')) {
+                    incorrect++;
+                }
+            });
+            return incorrect;
+        }
+
+        function updateStats() {
+            correctAnswers = getCurrentCorrectCount();
+            incorrectAnswers = getCurrentIncorrectCount();
+            
+            const progress = totalBlanks > 0 ? Math.round((correctAnswers / totalBlanks) * 100) : 0;
+            
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = progress + '% Complete';
+            document.getElementById('correctCount').textContent = correctAnswers + ' Correct';
+            document.getElementById('incorrectCount').textContent = incorrectAnswers + ' Incorrect';
+            document.getElementById('totalBlanks').textContent = totalBlanks + ' Total';
+        }
+
+        function resetRevision() {
+            if (totalBlanks === 0) {
+                document.getElementById('notesTextarea').value = '';
+                return;
+            }
+
+            if (confirm('Are you sure you want to reset everything? This will clear all content and answers. 🗑️')) {
+                // Stop timer
+                stopTimer();
+                
+                // Restore default notes instead of clearing
+                document.getElementById('notesTextarea').value = defaultNotes;
+                
+                // Show the notes input section again
+                document.getElementById('notesInput').style.display = 'block';
+                
+                // Hide the revision content
+                document.getElementById('revisionContent').style.display = 'none';
+                
+                // Reset all variables
+                blanksData = [];
+                totalBlanks = 0;
+                correctAnswers = 0;
+                incorrectAnswers = 0;
+                quizSubmitted = false;
+                
+                // Reset button visibility
+                document.getElementById('submitBtn').style.display = 'none';
+                document.getElementById('revealBtn').style.display = 'none';
+                document.getElementById('retestBtn').style.display = 'none';
+                
+                updateStats();
+            }
+        }
+
+        function showCelebration() {
+            const overlay = document.createElement('div');
+            overlay.className = 'overlay';
+            
+            const celebration = document.createElement('div');
+            celebration.className = 'celebration';
+            celebration.innerHTML = `
+                <h2>🎉 Perfect Score! 🎉</h2>
+                <p>Outstanding! You got everything correct!</p>
+                <p><strong>Perfect Score: ${totalBlanks}/${totalBlanks}</strong></p>
+                <br>
+                <button class="btn btn-primary" onclick="closeCelebration()">Amazing Work! 🌟</button>
+            `;
+            
+            document.body.appendChild(overlay);
+            document.body.appendChild(celebration);
+            
+            // Auto-close after 5 seconds
+            setTimeout(() => {
+                closeCelebration();
+            }, 5000);
+        }
+
+        function closeCelebration() {
+            const overlay = document.querySelector('.overlay');
+            const celebration = document.querySelector('.celebration');
+            if (overlay) overlay.remove();
+            if (celebration) celebration.remove();
+        }
+
+        // Sample notes for demonstration
+        document.getElementById('notesTextarea').value = defaultNotes;
+
+        // Initialize settings on page load
+        initializeSettings();
+    </script>
+</body>
+</html>
