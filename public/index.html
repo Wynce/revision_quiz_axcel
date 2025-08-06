@@ -1567,10 +1567,10 @@ The [speed] of light in a vacuum is approximately [300000000] meters per second.
         }
 
         function resetRevision() {
-            if (totalBlanks === 0) {
-                document.getElementById('notesTextarea').value = '';
-                return;
-            }
+    if (totalBlanks === 0) {
+        document.getElementById('notesTextarea').value = defaultNotes;
+        return;
+    }
 
             if (confirm('Are you sure you want to reset everything? This will clear all content and answers. 🗑️')) {
                 // Stop timer
